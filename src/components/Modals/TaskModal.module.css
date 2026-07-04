@@ -1,0 +1,187 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-md);
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.modalHeader h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Enable scroll inside form */
+}
+
+.formScroll {
+  overflow-y: auto;
+  padding-right: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-height: 55vh;
+}
+
+/* Custom scrollbar for form scroll */
+.formScroll::-webkit-scrollbar {
+  width: 6px;
+}
+.formScroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-sm);
+}
+
+.formGroup {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.rowField {
+  flex: 1;
+  min-width: 0; /* Prevents overflow */
+}
+
+.subtasksSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-md);
+}
+
+.subtaskTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+}
+
+.subtaskInputArea {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.subtaskInlineInput {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.subtaskInlineInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.addSubtaskBtn {
+  border: 1px solid var(--border-subtle) !important;
+  background-color: #ffffff !important;
+}
+
+.subtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  background-color: rgba(0, 0, 0, 0.02);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+}
+
+.subtaskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-sm);
+  background: #ffffff;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+}
+
+.subtaskLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  min-width: 0;
+  width: 100%;
+}
+
+.subtaskLabel input {
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.subtaskLabel span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-base);
+}
+
+.completedText {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.subtaskDeleteBtn {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  padding: 4px !important;
+  flex-shrink: 0;
+}
+
+.subtaskItem:hover .subtaskDeleteBtn {
+  opacity: 1;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-md);
+}
+
+.rightActions {
+  display: flex;
+  gap: var(--space-sm);
+}
