@@ -1,0 +1,50 @@
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+  margin-top: var(--space-xs);
+}
+
+.progressTextLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: var(--font-weight-medium);
+}
+
+.icon {
+  color: var(--text-muted);
+}
+
+.percentage {
+  font-weight: var(--font-weight-semibold);
+}
+
+.progressBarBg {
+  height: 5px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-sm);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Green bar when all subtasks completed */
+.progressBarFill[style*="width: 100%"] {
+  background: var(--priority-low);
+}
