@@ -1,3 +1,13 @@
+.boardOuterContainer {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
 .boardWrapper {
   flex: 1;
   display: flex;
@@ -6,6 +16,15 @@
   padding-bottom: var(--space-md);
   margin-top: var(--space-md);
   min-height: 0; /* Important for vertical flex child scrolling */
+  width: 100%;
+  
+  /* Hide native scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.boardWrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .boardColumns {
@@ -13,11 +32,13 @@
   gap: var(--space-lg);
   align-items: flex-start;
   height: 100%;
+  min-width: 100%; /* Allows flexing columns to fill width if few, but scroll if many */
+  padding: 0 var(--space-xs); /* Prevent edge clipping */
 }
 
 .addColumnPlaceholder {
-  width: 300px;
-  min-width: 300px;
+  width: 280px;
+  min-width: 280px;
   height: 120px;
   display: flex;
   align-items: center;
@@ -27,11 +48,75 @@
   cursor: pointer;
   color: var(--text-secondary);
   font-weight: var(--font-weight-medium);
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--surface);
 }
 
 .addColumnPlaceholder:hover {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  background-color: var(--surface-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Scroll Navigation Chevrons --- */
+.navOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navOverlayLeft {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: var(--space-sm);
+  background: linear-gradient(to right, rgba(240, 242, 245, 0.95) 0%, rgba(240, 242, 245, 0.7) 40%, rgba(240, 242, 245, 0) 100%);
+}
+
+.navOverlayRight {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: var(--space-sm);
+  background: linear-gradient(to left, rgba(240, 242, 245, 0.95) 0%, rgba(240, 242, 245, 0.7) 40%, rgba(240, 242, 245, 0) 100%);
+}
+
+.navOverlayVisible {
+  opacity: 1;
+}
+
+.navButton {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: var(--text-primary);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background: #ffffff;
+  transform: scale(1.1);
+  color: var(--accent-primary);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.15), 0 4px 6px rgba(0, 0, 0, 0.04);
+}
+
+.navButton:active {
+  transform: scale(0.95);
 }

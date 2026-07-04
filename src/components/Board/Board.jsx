@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   DndContext, 
   DragOverlay, 
@@ -7,6 +7,7 @@ import {
   useSensors, 
   PointerSensor 
 } from '@dnd-kit/core';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useBoardContext } from '../../context/BoardContext';
 import { useBoardActions } from '../../hooks/useBoardActions';
 import Column from '../Column/Column';
@@ -27,6 +28,12 @@ export default function Board({
   // Drag states
   const [activeDragTask, setActiveDragTask] = useState(null);
   
+  // Scroll states for chevrons
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  
+  const boardWrapperRef = useRef(null);
+
   // Sensors configuration with 8px pointer movement constraint
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -35,6 +42,48 @@ export default function Board({
       },
     })
   );
+
+  // Scroll detection
+  const checkScroll = () => {
+    if (boardWrapperRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = boardWrapperRef.current;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    const wrapper = boardWrapperRef.current;
+    if (!wrapper) return;
+
+    wrapper.addEventListener('scroll', checkScroll);
+    checkScroll();
+
+    // Check again when window resizes or columns change
+    const resizeObserver = new ResizeObserver(() => {
+      checkScroll();
+    });
+    resizeObserver.observe(wrapper);
+
+    // Initial delay check to allow rendering
+    const timer = setTimeout(checkScroll, 100);
+
+    return () => {
+      wrapper.removeEventListener('scroll', checkScroll);
+      resizeObserver.disconnect();
+      clearTimeout(timer);
+    };
+  }, [state.columns]);
+
+  const handleScroll = (direction) => {
+    if (boardWrapperRef.current) {
+      const scrollAmount = 320;
+      boardWrapperRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // Filter tasks based on global search & filters
   const getFilteredTasks = () => {
@@ -145,37 +194,63 @@ export default function Board({
       onDragEnd={handleDragEnd}
       onDragCancel={() => setActiveDragTask(null)}
     >
-      <div className={styles.boardWrapper}>
-        <div className={styles.boardColumns}>
-          {state.columns
-            .sort((a, b) => a.order - b.order)
-            .map(col => {
-              const colTasks = filteredTasks
-                .filter(t => t.columnId === col.id)
-                .sort((a, b) => a.order - b.order);
-              const totalTasksCount = state.tasks.filter(t => t.columnId === col.id).length;
-              
-              return (
-                <Column
-                  key={col.id}
-                  column={col}
-                  tasks={colTasks}
-                  allTasksCount={totalTasksCount}
-                  onEditColumn={onEditColumn}
-                  onDeleteColumn={onDeleteColumn}
-                  onAddTask={onAddTask}
-                  onEditTask={onEditTask}
-                  renderTaskCard={renderTaskCard}
-                />
-              );
-            })}
-            
-          {/* Add Column Button */}
-          <div 
-            className={`${styles.addColumnPlaceholder} glass-panel glass-panel-hover`}
-            onClick={onAddColumn}
+      <div className={styles.boardOuterContainer}>
+        {/* Left Gradient Overlay & Chevron */}
+        <div className={`${styles.navOverlay} ${styles.navOverlayLeft} ${canScrollLeft ? styles.navOverlayVisible : ''}`}>
+          <button 
+            type="button" 
+            className={styles.navButton}
+            onClick={() => handleScroll('left')}
+            aria-label="Scroll Left"
           >
-            <span>+ Add Column</span>
+            <ChevronLeft size={20} />
+          </button>
+        </div>
+
+        {/* Right Gradient Overlay & Chevron */}
+        <div className={`${styles.navOverlay} ${styles.navOverlayRight} ${canScrollRight ? styles.navOverlayVisible : ''}`}>
+          <button 
+            type="button" 
+            className={styles.navButton}
+            onClick={() => handleScroll('right')}
+            aria-label="Scroll Right"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+
+        <div ref={boardWrapperRef} className={styles.boardWrapper}>
+          <div className={styles.boardColumns}>
+            {state.columns
+              .sort((a, b) => a.order - b.order)
+              .map(col => {
+                const colTasks = filteredTasks
+                  .filter(t => t.columnId === col.id)
+                  .sort((a, b) => a.order - b.order);
+                const totalTasksCount = state.tasks.filter(t => t.columnId === col.id).length;
+                
+                return (
+                  <Column
+                    key={col.id}
+                    column={col}
+                    tasks={colTasks}
+                    allTasksCount={totalTasksCount}
+                    onEditColumn={onEditColumn}
+                    onDeleteColumn={onDeleteColumn}
+                    onAddTask={onAddTask}
+                    onEditTask={onEditTask}
+                    renderTaskCard={renderTaskCard}
+                  />
+                );
+              })}
+              
+            {/* Add Column Button */}
+            <div 
+              className={`${styles.addColumnPlaceholder} glass-panel glass-panel-hover`}
+              onClick={onAddColumn}
+            >
+              <span>+ Add Column</span>
+            </div>
           </div>
         </div>
       </div>
