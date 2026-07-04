@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--space-xs);
   width: 100%;
+  position: relative;
 }
 
 .label {
@@ -11,24 +12,127 @@
   color: var(--text-secondary);
 }
 
-.selectField {
+.selectWrapper {
+  position: relative;
   width: 100%;
+}
+
+.selectTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: var(--space-sm) var(--space-md);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-md);
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
-.selectField:focus {
+.selectTrigger:hover {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-0.5px);
+  box-shadow: var(--shadow-md);
+}
+
+.selectTriggerActive,
+.selectTrigger:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), var(--shadow-md);
   background-color: #ffffff;
+}
+
+.triggerValue {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: var(--space-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.chevronIcon {
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevronIconRotated {
+  transform: rotate(180deg);
+}
+
+.optionsList {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 100;
+  padding: var(--space-xs);
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Thin custom scrollbar for options list */
+.optionsList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.optionsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.optionsList::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-sm);
+}
+
+.optionsList::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.optionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  transition: all 0.15s ease;
+}
+
+.optionItem:hover,
+.optionFocused {
+  background-color: rgba(99, 102, 241, 0.08);
+  color: var(--text-primary);
+}
+
+.optionSelected {
+  background-color: rgba(99, 102, 241, 0.05);
+  color: var(--accent-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.checkIcon {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-left: var(--space-sm);
 }
 
 .selectError {
@@ -42,4 +146,5 @@
 .errorMessage {
   font-size: var(--font-size-xs);
   color: var(--priority-high);
+  margin-top: 2px;
 }

@@ -4,6 +4,7 @@ import { useBoardContext } from '../../context/BoardContext';
 import { useBoardActions } from '../../hooks/useBoardActions';
 import { getUniqueAssignees } from '../../utils/helpers';
 import Button from '../common/Button';
+import Select from '../common/Select';
 import styles from './Header.module.css';
 
 export default function Header({ onAddColumnClick }) {
@@ -63,26 +64,20 @@ export default function Header({ onAddColumnClick }) {
         </div>
 
         {/* Priority Filter */}
-        <select
+        <Select
           value={state.filterPriority || ''}
           onChange={(e) => setPriorityFilter(e.target.value || null)}
+          options={priorityOptions}
           className={styles.selectFilter}
-        >
-          {priorityOptions.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
+        />
 
         {/* Assignee Filter */}
-        <select
+        <Select
           value={state.filterAssignee || ''}
           onChange={(e) => setAssigneeFilter(e.target.value || null)}
+          options={assigneeOptions}
           className={styles.selectFilter}
-        >
-          {assigneeOptions.map(opt => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
+        />
 
         {/* Clear Filters Button */}
         {hasActiveFilters && (

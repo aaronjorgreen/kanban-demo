@@ -89,21 +89,7 @@
 }
 
 .selectFilter {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  background-color: rgba(255, 255, 255, 0.7);
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  color: var(--text-primary);
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.15s ease;
-}
-
-.selectFilter:focus {
-  border-color: var(--accent-primary);
-  background-color: #ffffff;
+  width: 160px;
 }
 
 .clearFiltersBtn {
