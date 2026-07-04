@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
-import { Kanban } from 'lucide-react';
+import { useBoardContext } from './context/BoardContext';
+import { useBoardActions } from './hooks/useBoardActions';
+import Header from './components/Header/Header';
 import Board from './components/Board/Board';
 import TaskCard from './components/TaskCard/TaskCard';
 import TaskModal from './components/Modals/TaskModal';
+import ColumnModal from './components/Modals/ColumnModal';
 import DeleteConfirmModal from './components/Modals/DeleteConfirmModal';
 import styles from './App.module.css';
 
 function App() {
-  // Modal states for task CRUD
+  const { state } = useBoardContext();
+  const { deleteColumn } = useBoardActions();
+
+  // Task Modal states
   const [activeTask, setActiveTask] = useState(null);
   const [defaultColumnId, setDefaultColumnId] = useState(null);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [taskToDeleteId, setTaskToDeleteId] = useState(null);
 
+  // Column Modal states
+  const [activeColumn, setActiveColumn] = useState(null);
+  const [isColModalOpen, setIsColModalOpen] = useState(false);
+  const [colToDeleteId, setColToDeleteId] = useState(null);
+
+  // Task handlers
   const handleAddTask = (columnId) => {
     setActiveTask(null);
     setDefaultColumnId(columnId);
@@ -35,6 +47,33 @@ function App() {
     setIsTaskModalOpen(false);
   };
 
+  // Column handlers
+  const handleAddColumn = () => {
+    setActiveColumn(null);
+    setIsColModalOpen(true);
+  };
+
+  const handleEditColumn = (column) => {
+    setActiveColumn(column);
+    setIsColModalOpen(true);
+  };
+
+  const handleDeleteColumnClick = (columnId) => {
+    // Check if column has tasks
+    const columnHasTasks = state.tasks.some(t => t.columnId === columnId);
+    if (columnHasTasks) {
+      setColToDeleteId(columnId);
+    } else {
+      // Direct delete if empty
+      deleteColumn(columnId);
+    }
+  };
+
+  const handleColModalClose = () => {
+    setActiveColumn(null);
+    setIsColModalOpen(false);
+  };
+
   // Helper to render task card inside Column component
   const renderTaskCard = (task) => (
     <TaskCard
@@ -47,22 +86,15 @@ function App() {
 
   return (
     <div className={styles.appContainer}>
-      <header className={`${styles.appHeader} glass-header`}>
-        <div className={styles.titleContainer}>
-          <div className={styles.logo}>
-            <Kanban size={28} strokeWidth={2.5} />
-          </div>
-          <h1 className={styles.logoText}>KanBan</h1>
-        </div>
-        <div style={{ color: 'var(--text-secondary)' }}>
-          🤖 Developed by Antigravity AI
-        </div>
-      </header>
+      <Header onAddColumnClick={handleAddColumn} />
       
       <main className={styles.appMain}>
         <Board 
           onAddTask={handleAddTask}
           onEditTask={handleEditTask}
+          onAddColumn={handleAddColumn}
+          onEditColumn={handleEditColumn}
+          onDeleteColumn={handleDeleteColumnClick}
           renderTaskCard={renderTaskCard}
         />
       </main>
@@ -74,8 +106,8 @@ function App() {
           defaultColumnId={defaultColumnId}
           onClose={handleTaskModalClose}
           onDeleteTask={(taskId) => {
-            setIsTaskModalOpen(false); // Close task modal first
-            setTaskToDeleteId(taskId); // Open confirm dialog
+            setIsTaskModalOpen(false);
+            setTaskToDeleteId(taskId);
           }}
         />
       )}
@@ -86,6 +118,22 @@ function App() {
           type="task"
           targetId={taskToDeleteId}
           onClose={() => setTaskToDeleteId(null)}
+        />
+      )}
+
+      {/* Column Creation / Edition Modal */}
+      {isColModalOpen && (
+        <ColumnModal
+          column={activeColumn}
+          onClose={handleColModalClose}
+        />
+      )}
+
+      {colToDeleteId && (
+        <DeleteConfirmModal
+          type="column"
+          targetId={colToDeleteId}
+          onClose={() => setColToDeleteId(null)}
         />
       )}
     </div>

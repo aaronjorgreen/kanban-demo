@@ -11,25 +11,21 @@ import { useBoardContext } from '../../context/BoardContext';
 import { useBoardActions } from '../../hooks/useBoardActions';
 import Column from '../Column/Column';
 import TaskCard from '../TaskCard/TaskCard';
-import ColumnModal from '../Modals/ColumnModal';
-import DeleteConfirmModal from '../Modals/DeleteConfirmModal';
 import styles from './Board.module.css';
 
 export default function Board({ 
   onAddTask, 
   onEditTask,
-  renderTaskCard // helper to render task card from App.jsx
+  onAddColumn,
+  onEditColumn,
+  onDeleteColumn,
+  renderTaskCard
 }) {
   const { state } = useBoardContext();
-  const { deleteColumn, moveTask } = useBoardActions();
+  const { moveTask } = useBoardActions();
   
   // Drag states
   const [activeDragTask, setActiveDragTask] = useState(null);
-  
-  // Modal states
-  const [editingColumn, setEditingColumn] = useState(null);
-  const [isColModalOpen, setIsColModalOpen] = useState(false);
-  const [colToDeleteId, setColToDeleteId] = useState(null);
   
   // Sensors configuration with 8px pointer movement constraint
   const sensors = useSensors(
@@ -111,6 +107,7 @@ export default function Board({
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
+    const originalColumnId = activeDragTask?.columnId;
     setActiveDragTask(null);
     if (!over) return;
 
@@ -139,30 +136,6 @@ export default function Board({
     moveTask(activeId, overColumnId, overIndex);
   };
 
-  const handleEditColumnClick = (column) => {
-    setEditingColumn(column);
-    setIsColModalOpen(true);
-  };
-
-  const handleDeleteColumnClick = (columnId) => {
-    const columnHasTasks = state.tasks.some(t => t.columnId === columnId);
-    if (columnHasTasks) {
-      setColToDeleteId(columnId);
-    } else {
-      deleteColumn(columnId);
-    }
-  };
-
-  const handleColModalClose = () => {
-    setEditingColumn(null);
-    setIsColModalOpen(false);
-  };
-
-  const handleAddColumnClick = () => {
-    setEditingColumn(null);
-    setIsColModalOpen(true);
-  };
-
   return (
     <DndContext
       sensors={sensors}
@@ -188,8 +161,8 @@ export default function Board({
                   column={col}
                   tasks={colTasks}
                   allTasksCount={totalTasksCount}
-                  onEditColumn={handleEditColumnClick}
-                  onDeleteColumn={handleDeleteColumnClick}
+                  onEditColumn={onEditColumn}
+                  onDeleteColumn={onDeleteColumn}
                   onAddTask={onAddTask}
                   onEditTask={onEditTask}
                   renderTaskCard={renderTaskCard}
@@ -200,27 +173,11 @@ export default function Board({
           {/* Add Column Button */}
           <div 
             className={`${styles.addColumnPlaceholder} glass-panel glass-panel-hover`}
-            onClick={handleAddColumnClick}
+            onClick={onAddColumn}
           >
             <span>+ Add Column</span>
           </div>
         </div>
-
-        {/* Modals */}
-        {isColModalOpen && (
-          <ColumnModal 
-            column={editingColumn} 
-            onClose={handleColModalClose} 
-          />
-        )}
-
-        {colToDeleteId && (
-          <DeleteConfirmModal
-            type="column"
-            targetId={colToDeleteId}
-            onClose={() => setColToDeleteId(null)}
-          />
-        )}
       </div>
 
       {/* Drag Overlay Ghost copy */}
