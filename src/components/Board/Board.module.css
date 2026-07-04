@@ -1,0 +1,37 @@
+.boardWrapper {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: var(--space-md);
+  margin-top: var(--space-md);
+  min-height: 0; /* Important for vertical flex child scrolling */
+}
+
+.boardColumns {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+  height: 100%;
+}
+
+.addColumnPlaceholder {
+  width: 300px;
+  min-width: 300px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  transition: all 0.2s ease;
+}
+
+.addColumnPlaceholder:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+}

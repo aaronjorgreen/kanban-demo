@@ -1,0 +1,105 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 110; /* Stack on top of edit modals */
+  padding: var(--space-md);
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 440px;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--priority-high);
+}
+
+.warningIcon {
+  flex-shrink: 0;
+}
+
+.modalHeader h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.modalBody {
+  margin-top: var(--space-xs);
+}
+
+.warningText {
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-lg);
+  line-height: 1.6;
+}
+
+.columnDeleteBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.choiceGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.radioLabel input {
+  cursor: pointer;
+}
+
+.migrationSelect {
+  margin-left: 24px;
+  width: calc(100% - 24px) !important;
+}
+
+.noMigrationMessage {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}

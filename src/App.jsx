@@ -1,8 +1,17 @@
 import React from 'react';
 import { Kanban } from 'lucide-react';
+import Board from './components/Board/Board';
 import styles from './App.module.css';
 
 function App() {
+  const handleAddTask = (columnId) => {
+    console.log('Add task in column:', columnId);
+  };
+
+  const handleEditTask = (task) => {
+    console.log('Edit task:', task);
+  };
+
   return (
     <div className={styles.appContainer}>
       <header className={`${styles.appHeader} glass-header`}>
@@ -17,14 +26,10 @@ function App() {
         </div>
       </header>
       <main className={styles.appMain}>
-        <div className="glass-panel" style={{ padding: 'var(--space-2xl)', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--space-sm)' }}>
-            Welcome to the Kanban Board!
-          </h2>
-          <p style={{ color: 'var(--text-secondary)' }}>
-            Scaffolding is completed. The next phase will build state management and load the data layer.
-          </p>
-        </div>
+        <Board 
+          onAddTask={handleAddTask}
+          onEditTask={handleEditTask}
+        />
       </main>
     </div>
   );
