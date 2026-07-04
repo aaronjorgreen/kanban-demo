@@ -83,3 +83,12 @@
   font-weight: var(--font-weight-bold);
   letter-spacing: -0.2px;
 }
+
+.overlayCard {
+  transform: scale(1.04) rotate(2deg) !important;
+  box-shadow: var(--shadow-drag) !important;
+  border-color: var(--accent-primary) !important;
+  cursor: grabbing !important;
+  opacity: 0.9 !important;
+}
+

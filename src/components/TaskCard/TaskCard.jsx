@@ -1,5 +1,7 @@
 import React from 'react';
 import { Trash2, Edit2, User } from 'lucide-react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import PriorityBadge from './PriorityBadge';
 import SubtaskProgress from './SubtaskProgress';
 import IconButton from '../common/IconButton';
@@ -8,8 +10,18 @@ import styles from './TaskCard.module.css';
 export default function TaskCard({ 
   task, 
   onClick, 
-  onDelete 
+  onDelete,
+  isOverlay = false
 }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: task.id });
+
   // Get assignee initials
   const getInitials = (name) => {
     if (!name) return '';
@@ -20,39 +32,55 @@ export default function TaskCard({
 
   const initials = getInitials(task.assignee);
 
-  const handleCardClick = () => {
+  const handleCardClick = (e) => {
+    // If it's a drag overlay clone, do nothing
+    if (isOverlay) return;
     if (onClick) onClick(task);
   };
 
   const handleDeleteClick = (e) => {
     e.stopPropagation(); // Prevent opening modal when clicking delete
+    if (isOverlay) return;
     if (onDelete) onDelete(task.id);
+  };
+
+  const cardStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging && !isOverlay ? 0.35 : 1,
+    cursor: isOverlay ? 'grabbing' : 'grab'
   };
 
   return (
     <div 
-      className={`${styles.cardContainer} glass-card animate-card-enter`}
+      ref={setNodeRef}
+      style={cardStyle}
+      className={`${styles.cardContainer} glass-card ${isOverlay ? styles.overlayCard : ''}`}
       onClick={handleCardClick}
+      {...attributes}
+      {...listeners}
     >
       <div className={styles.cardHeader}>
         <PriorityBadge priority={task.priority} />
-        <div className={styles.cardActions}>
-          <IconButton 
-            icon={Edit2} 
-            size={12} 
-            title="Edit Task"
-            className={styles.actionBtn}
-            onClick={handleCardClick}
-          />
-          <IconButton 
-            icon={Trash2} 
-            size={12} 
-            variant="danger" 
-            title="Delete Task"
-            className={styles.actionBtn}
-            onClick={handleDeleteClick}
-          />
-        </div>
+        {!isOverlay && (
+          <div className={styles.cardActions}>
+            <IconButton 
+              icon={Edit2} 
+              size={12} 
+              title="Edit Task"
+              className={styles.actionBtn}
+              onClick={handleCardClick}
+            />
+            <IconButton 
+              icon={Trash2} 
+              size={12} 
+              variant="danger" 
+              title="Delete Task"
+              className={styles.actionBtn}
+              onClick={handleDeleteClick}
+            />
+          </div>
+        )}
       </div>
 
       <div className={styles.cardBody}>
