@@ -13,6 +13,7 @@ export default function PriorityBadge({ priority }) {
       bgColor={details.bgColor}
       className={`${styles.priorityBadge} ${isHigh ? 'animate-pulse-high' : ''}`}
     >
+      <span className={styles.dot} style={{ backgroundColor: details.color }} />
       {details.label}
     </Badge>
   );

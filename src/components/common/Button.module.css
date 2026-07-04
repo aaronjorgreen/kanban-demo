@@ -4,7 +4,7 @@
   justify-content: center;
   font-family: var(--font-family);
   font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   user-select: none;
   border: 1px solid transparent;

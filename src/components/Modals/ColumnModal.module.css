@@ -18,18 +18,26 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
 .modalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-md);
 }
 
 .modalHeader h2 {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.3px;
 }
 
 .form {
@@ -48,12 +56,18 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .colorGrid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: var(--space-sm);
+  background: rgba(0, 0, 0, 0.02);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
 }
 
 .colorOption {
@@ -61,17 +75,19 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
 }
 
 .colorOption:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
+  box-shadow: var(--shadow-md);
 }
 
 .activeColor {
   border-color: #ffffff;
-  outline: 2px solid var(--accent-primary);
+  outline: 2.5px solid var(--accent-primary);
+  transform: scale(1.1);
 }
 
 .modalFooter {
@@ -79,5 +95,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-md);
   margin-top: var(--space-sm);
 }

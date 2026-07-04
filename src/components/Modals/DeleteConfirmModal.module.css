@@ -18,12 +18,19 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
 .modalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-md);
 }
 
 .titleArea {
@@ -39,18 +46,19 @@
 
 .modalHeader h2 {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .modalBody {
-  margin-top: var(--space-xs);
+  margin-top: var(--space-md);
 }
 
 .warningText {
   color: var(--text-primary);
   font-size: var(--font-size-base);
   margin-bottom: var(--space-lg);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .columnDeleteBody {
@@ -62,38 +70,42 @@
 .choiceGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   background-color: rgba(0, 0, 0, 0.02);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   padding: var(--space-md);
 }
 
 .radioLabel {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  font-weight: var(--font-weight-medium);
+  gap: var(--space-md);
+  font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
 }
 
-.radioLabel input {
+.radioLabel input[type="radio"] {
   cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-primary);
 }
 
 .migrationSelect {
-  margin-left: 24px;
-  width: calc(100% - 24px) !important;
+  margin-left: 28px;
+  width: calc(100% - 28px) !important;
 }
 
 .noMigrationMessage {
   font-size: var(--font-size-sm);
-  color: var(--text-secondary);
   background-color: var(--priority-high-bg);
   color: var(--priority-high);
   border-radius: var(--radius-md);
   padding: var(--space-md);
+  border: 1px solid rgba(225, 29, 72, 0.15);
+  font-weight: 500;
 }
 
 .modalFooter {
@@ -101,5 +113,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-md);
   margin-top: var(--space-md);
 }

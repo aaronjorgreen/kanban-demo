@@ -1,5 +1,18 @@
 .priorityBadge {
   font-size: 10px !important;
-  padding: 2px 8px !important;
-  letter-spacing: 0.3px;
+  padding: 3px 8px !important;
+  letter-spacing: 0.2px;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
 }
