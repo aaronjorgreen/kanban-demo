@@ -431,112 +431,112 @@ npm run dev            # Verify dev server starts correctly
 ```
 
 ### Manual Verification Checklist
-- [ ] App loads with seed data on first visit
-- [ ] Data persists after page refresh
-- [ ] Can add a new column with custom title and color
-- [ ] Can edit a column title and color
-- [ ] Can delete a column (with task migration prompt)
-- [ ] Can add a new task to any column
-- [ ] Can edit all task fields (title, description, priority, assignee, subtasks)
-- [ ] Can delete a task with confirmation
-- [ ] Can drag a task between columns — status updates correctly
-- [ ] Can reorder tasks within the same column
-- [ ] Drag overlay appears with elevated card style
-- [ ] Drop zone visual feedback works
-- [ ] Task count badges update in real time
-- [ ] Priority badges display correct colors (Low=green, Medium=amber, High=red)
-- [ ] Search filters tasks across all columns
-- [ ] Priority filter works
-- [ ] Assignee filter works
-- [ ] Filters stack correctly (AND logic)
-- [ ] Toast notifications appear for all CRUD actions
-- [ ] Glassmorphism effects render correctly (blur, transparency, borders)
-- [ ] All micro-animations feel smooth (hover, drag, modal open/close)
-- [ ] Empty column state displays correctly
+- [x] App loads with seed data on first visit
+- [x] Data persists after page refresh
+- [x] Can add a new column with custom title and color
+- [x] Can edit a column title and color
+- [x] Can delete a column (with task migration prompt)
+- [x] Can add a new task to any column
+- [x] Can edit all task fields (title, description, priority, assignee, subtasks)
+- [x] Can delete a task with confirmation
+- [x] Can drag a task between columns — status updates correctly
+- [x] Can reorder tasks within the same column
+- [x] Drag overlay appears with elevated card style
+- [x] Drop zone visual feedback works
+- [x] Task count badges update in real time
+- [x] Priority badges display correct colors (Low=green, Medium=amber, High=red)
+- [x] Search filters tasks across all columns
+- [x] Priority filter works
+- [x] Assignee filter works
+- [x] Filters stack correctly (AND logic)
+- [x] Toast notifications appear for all CRUD actions
+- [x] Glassmorphism effects render correctly (blur, transparency, borders)
+- [x] All micro-animations feel smooth (hover, drag, modal open/close)
+- [x] Empty column state displays correctly
 
 ---
 
 ## 10. Progress Checklist
 
 ### Phase 1 — Project Scaffolding & Design Foundation
-- [ ] Initialize Vite + React project (`npx create-vite`)
-- [ ] Install dependencies (`@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`, `uuid`, `lucide-react`)
-- [ ] Set up folder structure (`components/`, `context/`, `hooks/`, `utils/`, `styles/`)
-- [ ] Create `index.css` with CSS variables (colors, typography, spacing, shadows)
-- [ ] Create `glass.css` with glassmorphism utility classes
-- [ ] Create `animations.css` with keyframe definitions
-- [ ] Import Google Font (Inter)
-- [ ] Build `App.jsx` root layout shell (header area + board area)
-- [ ] Build `App.module.css` with page layout
+- [x] Initialize Vite + React project (`npx create-vite`)
+- [x] Install dependencies (`@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`, `uuid`, `lucide-react`)
+- [x] Set up folder structure (`components/`, `context/`, `hooks/`, `utils/`, `styles/`)
+- [x] Create `index.css` with CSS variables (colors, typography, spacing, shadows)
+- [x] Create `glass.css` with glassmorphism utility classes
+- [x] Create `animations.css` with keyframe definitions
+- [x] Import Google Font (Inter)
+- [x] Build `App.jsx` root layout shell (header area + board area)
+- [x] Build `App.module.css` with page layout
 
 ### Phase 2 — State Management & Data Layer
-- [ ] Create `utils/constants.js` (priority levels, colors, localStorage key)
-- [ ] Create `utils/seedData.js` (4 default columns + 6-8 sample tasks)
-- [ ] Create `utils/helpers.js` (getTasksByColumn, getUniqueAssignees, etc.)
-- [ ] Create `context/BoardContext.jsx` with `useReducer`
-- [ ] Implement all reducer actions (`ADD_TASK`, `UPDATE_TASK`, `DELETE_TASK`, `MOVE_TASK`, `REORDER_TASK`, `ADD_COLUMN`, `UPDATE_COLUMN`, `DELETE_COLUMN`, `SET_FILTER`, `CLEAR_FILTERS`)
-- [ ] Create `hooks/useLocalStorage.js` (debounced read/write)
-- [ ] Create `hooks/useBoardActions.js` (dispatch helper functions)
-- [ ] Wire localStorage persistence into BoardContext
-- [ ] Verify: state initializes from localStorage or seed data
+- [x] Create `utils/constants.js` (priority levels, colors, localStorage key)
+- [x] Create `utils/seedData.js` (4 default columns + 6-8 sample tasks)
+- [x] Create `utils/helpers.js` (getTasksByColumn, getUniqueAssignees, etc.)
+- [x] Create `context/BoardContext.jsx` with `useReducer`
+- [x] Implement all reducer actions (`ADD_TASK`, `UPDATE_TASK`, `DELETE_TASK`, `MOVE_TASK`, `REORDER_TASK`, `ADD_COLUMN`, `UPDATE_COLUMN`, `DELETE_COLUMN`, `SET_FILTER`, `CLEAR_FILTERS`)
+- [x] Create `hooks/useLocalStorage.js` (debounced read/write)
+- [x] Create `hooks/useBoardActions.js` (dispatch helper functions)
+- [x] Wire localStorage persistence into BoardContext
+- [x] Verify: state initializes from localStorage or seed data
 
 ### Phase 3 — Board Layout & Columns
-- [ ] Build common components: `Button`, `IconButton`, `Badge`, `Input`, `Textarea`, `Select`
-- [ ] Build `Board.jsx` — horizontal scrollable column container
-- [ ] Build `Column.jsx` — individual column with droppable area
-- [ ] Build `ColumnHeader.jsx` — title, color accent, task count, edit/delete buttons
-- [ ] Build `ColumnModal.jsx` — add/edit column form (title + color)
-- [ ] Build `DeleteConfirmModal.jsx` — reusable confirmation dialog
-- [ ] Style all column components with glassmorphism
-- [ ] Wire column CRUD actions to context
-- [ ] Verify: can add, edit, delete columns
+- [x] Build common components: `Button`, `IconButton`, `Badge`, `Input`, `Textarea`, `Select`
+- [x] Build `Board.jsx` — horizontal scrollable column container
+- [x] Build `Column.jsx` — individual column with droppable area
+- [x] Build `ColumnHeader.jsx` — title, color accent, task count, edit/delete buttons
+- [x] Build `ColumnModal.jsx` — add/edit column form (title + color)
+- [x] Build `DeleteConfirmModal.jsx` — reusable confirmation dialog
+- [x] Style all column components with glassmorphism
+- [x] Wire column CRUD actions to context
+- [x] Verify: can add, edit, delete columns
 
 ### Phase 4 — Task Cards
-- [ ] Build `PriorityBadge.jsx` — colored priority label
-- [ ] Build `SubtaskProgress.jsx` — mini progress bar
-- [ ] Build `TaskCard.jsx` — full card with all display elements
-- [ ] Build `TaskModal.jsx` — add/edit task form with subtask management
-- [ ] Style cards with glassmorphism, hover effects
-- [ ] Add hover-reveal action buttons (edit, delete)
-- [ ] Wire task CRUD actions to context
-- [ ] Verify: can add, edit, delete tasks; subtask toggling works
+- [x] Build `PriorityBadge.jsx` — colored priority label
+- [x] Build `SubtaskProgress.jsx` — mini progress bar
+- [x] Build `TaskCard.jsx` — full card with all display elements
+- [x] Build `TaskModal.jsx` — add/edit task form with subtask management
+- [x] Style cards with glassmorphism, hover effects
+- [x] Add hover-reveal action buttons (edit, delete)
+- [x] Wire task CRUD actions to context
+- [x] Verify: can add, edit, delete tasks; subtask toggling works
 
 ### Phase 5 — Drag & Drop Integration
-- [ ] Set up `DndContext` in `Board.jsx` with PointerSensor
-- [ ] Add `SortableContext` to each `Column`
-- [ ] Make `TaskCard` sortable with `useSortable`
-- [ ] Implement `onDragStart` — set active task
-- [ ] Implement `onDragOver` — optimistic column transfer
-- [ ] Implement `onDragEnd` — finalize move, dispatch `MOVE_TASK`
-- [ ] Implement `onDragCancel` — revert state
-- [ ] Build `DragOverlay.jsx` — custom ghost card
-- [ ] Add drag visual feedback (rotation, shadow, opacity)
-- [ ] Add drop zone indicators (border glow, insertion line)
-- [ ] Verify: cross-column drag updates `columnId` (status); within-column reorder works
+- [x] Set up `DndContext` in `Board.jsx` with PointerSensor
+- [x] Add `SortableContext` to each `Column`
+- [x] Make `TaskCard` sortable with `useSortable`
+- [x] Implement `onDragStart` — set active task
+- [x] Implement `onDragOver` — optimistic column transfer
+- [x] Implement `onDragEnd` — finalize move, dispatch `MOVE_TASK`
+- [x] Implement `onDragCancel` — revert state
+- [x] Build `DragOverlay.jsx` — custom ghost card
+- [x] Add drag visual feedback (rotation, shadow, opacity)
+- [x] Add drop zone indicators (border glow, insertion line)
+- [x] Verify: cross-column drag updates `columnId` (status); within-column reorder works
 
 ### Phase 6 — Search, Filter & Polish
-- [ ] Build `Header.jsx` — app title, search bar, filter controls
-- [ ] Implement search filtering (title + description text match)
-- [ ] Implement priority filter dropdown
-- [ ] Implement assignee filter dropdown (auto-populated)
-- [ ] Add filter stacking (AND logic)
-- [ ] Add "Clear filters" button with visibility toggle
-- [ ] Show filtered vs total task counts on columns
-- [ ] Build `Toast.jsx` — notification component
-- [ ] Add toast triggers for all CRUD and move actions
-- [ ] Add empty column state UI
-- [ ] Final micro-animation polish pass
-- [ ] Verify: all filters work, toasts appear, animations are smooth
+- [x] Build `Header.jsx` — app title, search bar, filter controls
+- [x] Implement search filtering (title + description text match)
+- [x] Implement priority filter dropdown
+- [x] Implement assignee filter dropdown (auto-populated)
+- [x] Add filter stacking (AND logic)
+- [x] Add "Clear filters" button with visibility toggle
+- [x] Show filtered vs total task counts on columns
+- [x] Build `Toast.jsx` — notification component
+- [x] Add toast triggers for all CRUD and move actions
+- [x] Add empty column state UI
+- [x] Final micro-animation polish pass
+- [x] Verify: all filters work, toasts appear, animations are smooth
 
 ### Phase 7 — Testing & Final QA
-- [ ] Test all CRUD flows end-to-end
-- [ ] Test drag-and-drop across all columns
-- [ ] Test localStorage persistence (refresh, clear, corrupt data recovery)
-- [ ] Test edge cases (empty board, single column, max tasks)
-- [ ] Enrich seed data with realistic task content
-- [ ] Final visual polish (spacing, alignment, color consistency)
-- [ ] Verify production build (`npm run build`)
-- [ ] Push to GitHub repository
+- [x] Test all CRUD flows end-to-end
+- [x] Test drag-and-drop across all columns
+- [x] Test localStorage persistence (refresh, clear, corrupt data recovery)
+- [x] Test edge cases (empty board, single column, max tasks)
+- [x] Enrich seed data with realistic task content
+- [x] Final visual polish (spacing, alignment, color consistency)
+- [x] Verify production build (`npm run build`)
+- [x] Push to GitHub repository
 
 ---
 
